@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            background-image:url('https://images.pexels.com/photos/2422497/pexels-photo-2422497.jpeg?auto=compress&cs=tinysrgb&w=600');
+            color: white;
+        }
+
+        #main{
+            background-color: rgba(52, 54, 54, 0.782);
+            width:230px;
+            margin-left:650px;
+            margin-top:50px;
+            color:rgb(103, 194, 240)
+        }
+    
+
+        #a{
+            margin-top:180px;
+            display:block;
+            justify-content: center;
+            text-align: center;
+        }
+
+        #but{
+            background-color:rgb(36, 214, 220);
+        }
+
+        h1{
+            color:rgb(0, 213, 255);
+        }
+
+        
+    </style>
+</head>
+<body>
+
+    <div id="a">
+    <h1>🔆 Weather App 🔆</h1>
+    <input type="text" id="input"> <button id="but">Submit</button>
+    <div id="main"></div>
+    </div>
+</body>
+
+<script>
+
+ const x=document.querySelector("#but");
+ const y=document.querySelector("#input");
+ const div=document.querySelector("#main");
+
+ let city="kanpur";
+
+
+
+ x.addEventListener('click',(e)=>{
+ e.preventDefault;
+ city=y.value;
+
+ async function getweather(){
+
+    try{
+       const res =await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=091f49ec3558cdda062bcbf34a19d072`);
+       const r=await res.json();
+       console.log(r);
+       const temp=r.main.temp;
+       const feels=r.main.feels_like;
+       const country=r.sys.country;
+       const wind=r.wind.speed;
+       console.log(r.weather[1]);
+
+
+       const a=document.createElement("h3");
+       const b=document.createElement("h3");
+       const c=document.createElement("h3");
+       const d=document.createElement("h3");
+
+
+       a.innerHTML=`TEMPERATURE=${temp} ℃`;
+       b.innerHTML=`FEELS LIKE=${feels} ℃`;
+       c.innerHTML=`COUNTRY CODE=${country}`;
+       d.innerHTML=`WIND SPEED=${wind} Km/Hr`;
+       div.appendChild(a);
+       div.appendChild(b);
+       div.appendChild(c);
+       div.appendChild(d);
+
+
+    }
+    catch(error){
+      console.log(error);
+    }
+ }
+ getweather();
+
+
+ })
+
+
+
+</script>
+
+
+
+</html>
